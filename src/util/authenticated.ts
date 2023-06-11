@@ -23,15 +23,18 @@ export const authenticatedApi = (handler: NextApiHandler, scopes: string[] = [])
             response.status(401).json({message: 'Unauthorized'})
             return
         }
-        // we don't check the use scope here because it's already checked by logto.
-        if (scopes?.length > 0) {
+        const defaultScopes = (process.env.LOGTO_API_SCOPE?.split(",") || []) as string[]
+        // add default scopes, removing duplicates
+        const scopesSet = new Set([...scopes, ...defaultScopes])
+        const newScopes = Array.from(scopesSet)
+        if (newScopes.length > 0) {
             const {user} = request;
             const userScopes = user.scopes;
             if (!userScopes) {
                 response.status(403).json({message: 'Forbidden'})
                 return
             }
-            const hasScope = scopes.every(scope => userScopes.includes(scope))
+            const hasScope = newScopes.every(scope => userScopes.includes(scope))
             if (!hasScope) {
                 response.status(403).json({message: 'Forbidden'})
                 return
