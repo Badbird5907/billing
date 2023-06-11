@@ -1,4 +1,3 @@
-import {logtoClient} from "@/libraries/logto";
 import {ensureValueNotUndefined} from "@/util/util";
 import {authenticatedApi} from "@/util/authenticated";
 

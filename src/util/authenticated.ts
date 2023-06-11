@@ -15,6 +15,9 @@ export const authenticated = <P extends Record<string, unknown> = Record<string,
             res.end();
         }
         return handler(context, ensureValueNotUndefined(user));
+    }, {
+        resource: process.env.LOGTO_API_RESOURCE,
+        getAccessToken: true
     });
 }
 export const authenticatedApi = (handler: NextApiHandler, scopes: string[] = []) => {
