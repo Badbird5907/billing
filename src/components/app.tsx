@@ -22,10 +22,11 @@ import {Logo,} from "@/components/icons";
 import {useRouter} from "next/router";
 
 interface AppWrapperProps {
-    children: React.ReactNode[] | React.ReactNode
+    children: React.ReactNode[] | React.ReactNode | null | undefined;
+    title?: string;
 }
 
-export const AppWrapper = ({children}: AppWrapperProps) => {
+export const AppWrapper = ({children, title}: AppWrapperProps) => {
     const router = useRouter();
     return (
         <>
@@ -92,6 +93,7 @@ export const AppWrapper = ({children}: AppWrapperProps) => {
                     </div>
                 </NavbarMenu>
             </NextUINavbar>
+            <h1 className="text-4xl font-bold text-center">{title}</h1>
             {children}
         </>
     );

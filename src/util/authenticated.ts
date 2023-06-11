@@ -2,7 +2,6 @@ import {logtoClient} from "@/libraries/logto";
 import {GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler} from "next";
 import {LogtoContext} from "@logto/next";
 import {ensureValueNotUndefined} from "@/util/util";
-import {GetContextParameters} from "@logto/node";
 
 export const authenticatedApi = (handler: NextApiHandler, scopes: string[] = []) => {
     return logtoClient.withLogtoApiRoute(async (request, response) => {
